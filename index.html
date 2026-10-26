@@ -4,6 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Briton Tycoon — UK Transport Empire 3D</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b1220'/%3E%3Ctext x='32' y='45' font-size='36' text-anchor='middle'%3E%F0%9F%9A%82%3C/text%3E%3C/svg%3E"/>
 <style>
   :root{--bg:#0b1220;--panel:#111c33;--panel2:#0e1730;--line:#24365e;--txt:#e8eefc;--dim:#9fb0d3;--acc:#ffb300;--acc2:#37e08b;--bad:#ff5d5d;--blue:#3aa0ff}
   *{box-sizing:border-box} html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);font:13px/1.45 "Segoe UI",system-ui,Roboto,Arial,sans-serif;overflow:hidden}
@@ -43,7 +44,7 @@
   .flagRow{display:flex;gap:8px;margin:12px 0} .flagRow .f{flex:1;text-align:center;background:#0c1630;border:1px solid var(--line);border-radius:8px;padding:8px}
   @media (max-width:1100px){#app{grid-template-columns:170px 1fr 250px}}
 </style>
-<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/"}}</script>
 </head>
 <body>
 <div id="app">
