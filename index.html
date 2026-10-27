@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07171b" />
+    <meta name="description" content="Transit 3D — a modern 3D transport tycoon inspired by OpenTTD. Build rail, roads, docks and airports, then grow a transport empire." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Transit 3D — Transport Tycoon</title>
+  </head>
+  <body>
+    <div id="game">
+      <canvas id="scene" aria-label="3D transport tycoon world"></canvas>
+      <div id="vignette"></div>
+      <div id="cursor-tip" class="cursor-tip" hidden></div>
+
+      <div id="ui">
+        <header class="topbar interactive">
+          <div class="brand">
+            <div class="brand-mark"><span>TT</span><i>3D</i></div>
+            <div class="brand-text"><strong>Transit 3D</strong><span>Transport Tycoon</span></div>
+          </div>
+          <div class="top-stats">
+            <div class="stat"><span>Cash</span><b id="hud-cash">$450,000</b></div>
+            <div class="stat"><span>Loan</span><b id="hud-loan">$0</b></div>
+            <div class="stat value-stat"><span>Company value</span><b id="hud-value">$0</b></div>
+          </div>
+          <div class="top-right">
+            <div class="date-box">
+              <span id="hud-date">1 Jan 1960</span>
+              <div class="speed-controls">
+                <button class="speed-btn" id="speed-pause" data-speed="0" title="Pause / resume (Space)" aria-label="Pause">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>
+                </button>
+                <button class="speed-btn active" data-speed="1" title="Normal speed">1×</button>
+                <button class="speed-btn" data-speed="2" title="Fast">2×</button>
+                <button class="speed-btn" data-speed="4" title="Fastest">4×</button>
+              </div>
+            </div>
+            <button class="icon-btn" id="btn-fleet" title="Fleet" aria-label="Fleet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
+            </button>
+            <button class="icon-btn" id="btn-finance" title="Finances" aria-label="Finances">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5M4 19h16"></path><path d="m7 15 4-5 3 3 5-7"></path></svg>
+            </button>
+            <button class="icon-btn" id="btn-help" title="Help" aria-label="Help">?</button>
+          </div>
+        </header>
+
+        <aside id="toolbar" class="toolbar interactive" aria-label="Build tools"></aside>
+
+        <div id="mode-banner" class="mode-banner interactive" hidden>
+          <div class="mode-icon" id="mode-icon"></div>
+          <div class="mode-text"><strong id="mode-title">Build mode</strong><span id="mode-hint"></span></div>
+          <button class="mode-cancel" id="mode-cancel">Cancel</button>
+        </div>
+
+        <section id="objectives" class="objectives panel interactive">
+          <div class="panel-head"><span>Contracts</span><span id="objective-count">0 / 4</span></div>
+          <div id="objective-list" class="objective-list"></div>
+        </section>
+
+        <aside id="side-panel" class="side-panel panel interactive" hidden></aside>
+
+        <div id="build-panel" class="build-panel panel interactive" hidden></div>
+
+        <section id="news-panel" class="news-panel panel">
+          <div class="panel-head"><span>Dispatch</span><span id="news-date">1 Jan</span></div>
+          <div id="news-list"></div>
+        </section>
+
+        <section id="minimap-wrap" class="minimap-wrap panel interactive">
+          <div class="panel-head"><span>Map</span><span id="minimap-coords">80 × 80</span></div>
+          <canvas id="minimap" width="220" height="220"></canvas>
+          <div class="minimap-legend"><span><i class="dot station"></i>Stations</span><span><i class="dot vehicle"></i>Vehicles</span></div>
+        </section>
+
+        <div id="toasts" class="toasts" aria-live="polite"></div>
+      </div>
+
+      <div id="start-screen">
+        <div class="start-glow"></div>
+        <div class="start-content">
+          <div class="eyebrow">A 3D TRANSPORT TYCOON</div>
+          <h1>Build a living<br /><em>railway empire.</em></h1>
+          <p class="start-sub">Lay track through rolling hills, connect towns and industries, and watch your company grow in a fully 3D world. A modern homage to the transport classic.</p>
+          <div class="start-features">
+            <div class="feature"><span class="feature-icon mint"></span><div><b>Procedural world</b><small>Living towns, forests and industries</small></div></div>
+            <div class="feature"><span class="feature-icon gold"></span><div><b>Five vehicle types</b><small>Trains, buses, trucks, ships and aircraft</small></div></div>
+            <div class="feature"><span class="feature-icon blue"></span><div><b>Build an empire</b><small>Routes, cargo, contracts and company value</small></div></div>
+          </div>
+          <button id="start-game" class="start-btn">Start Game</button>
+          <div class="start-note">Your first two bus stops and a connecting road are already waiting.</div>
+          <div class="start-controls">
+            <span><kbd>W A S D</kbd> Pan</span>
+            <span><kbd>Q</kbd><kbd>E</kbd> Rotate</span>
+            <span><kbd>Wheel</kbd> Zoom</span>
+            <span><kbd>Right-drag</kbd> Pan</span>
+            <span><kbd>Esc</kbd> Cancel</span>
+          </div>
+        </div>
+        <div class="start-footer"><span>Transit 3D</span><span>Three.js · WebGL</span></div>
+      </div>
+
+      <div id="modal-root"></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
